@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title">
+  <title id="title">Representacion visual del Titanic con capas de datos</title>
+  <rect width="960" height="720" fill="#0b1720"/>
+  <g stroke="#204d7a" stroke-opacity=".38">
+    <path d="M0 160h960M0 240h960M0 320h960M0 400h960M0 480h960M0 560h960"/>
+    <path d="M120 0v720M240 0v720M360 0v720M480 0v720M600 0v720M720 0v720M840 0v720"/>
+  </g>
+  <g fill="none" stroke="#d9952f" stroke-width="4">
+    <path d="M146 424h650l-78 96H228z" fill="#d9952f" fill-opacity=".08"/>
+    <path d="M260 310h92v114h-92zM418 276h92v148h-92zM576 310h92v114h-92z"/>
+    <path d="M306 260v50M464 226v50M622 260v50"/>
+  </g>
+  <g fill="#008b8b" fill-opacity=".7">
+    <circle cx="242" cy="210" r="8"/>
+    <circle cx="338" cy="176" r="8"/>
+    <circle cx="522" cy="198" r="8"/>
+    <circle cx="694" cy="158" r="8"/>
+    <circle cx="760" cy="260" r="8"/>
+  </g>
+  <g stroke="#008b8b" stroke-opacity=".65">
+    <path d="M242 210l96-34 184 22 172-40 66 102" fill="none"/>
+    <path d="M206 586c126-42 252-42 378 0s252 42 378 0" fill="none"/>
+    <path d="M0 632c126-42 252-42 378 0s252 42 378 0 252-42 378 0" fill="none"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#f8fbfc">
+    <text x="92" y="96" font-size="34" font-weight="700">Feature Layers</text>
+    <text x="92" y="138" font-size="18" fill="#c6d4d9">Age | Sex | Pclass | FamilySize | Fare</text>
+    <text x="640" y="620" font-size="24" font-weight="700">Survived = 0 / 1</text>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title">
+  <title id="title">Panel visual estilo realidad aumentada con metricas del Titanic</title>
+  <rect width="960" height="720" fill="#071017"/>
+  <g fill="none" stroke="#008b8b" stroke-opacity=".28">
+    <path d="M80 96h800M80 192h800M80 288h800M80 384h800M80 480h800M80 576h800"/>
+    <path d="M160 56v608M320 56v608M480 56v608M640 56v608M800 56v608"/>
+  </g>
+  <rect x="90" y="88" width="780" height="544" rx="8" fill="#0d2028" stroke="#d9952f" stroke-width="3"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#f8fbfc">
+    <text x="132" y="150" font-size="32" font-weight="700">Titanic Survival Model</text>
+    <text x="132" y="194" font-size="18" fill="#b8c8cf">Logistic Regression | Feature Impact</text>
+  </g>
+  <g transform="translate(132 260)">
+    <rect width="168" height="240" rx="8" fill="#f8fbfc" fill-opacity=".08" stroke="#008b8b"/>
+    <rect x="208" width="168" height="240" rx="8" fill="#f8fbfc" fill-opacity=".08" stroke="#008b8b"/>
+    <rect x="416" width="168" height="240" rx="8" fill="#f8fbfc" fill-opacity=".08" stroke="#008b8b"/>
+    <path d="M34 198V70M82 198V42M130 198V126" stroke="#d9952f" stroke-width="18"/>
+    <path d="M242 198V118M290 198V62M338 198V150" stroke="#008b8b" stroke-width="18"/>
+    <path d="M450 198V86M498 198V132M546 198V56" stroke="#b94d4d" stroke-width="18"/>
+    <g font-family="Arial, Helvetica, sans-serif" fill="#f8fbfc" font-size="18" font-weight="700">
+      <text x="28" y="284">Sex</text>
+      <text x="236" y="284">Pclass</text>
+      <text x="444" y="284">Fare</text>
+    </g>
+  </g>
+  <circle cx="746" cy="382" r="82" fill="none" stroke="#d9952f" stroke-width="18" stroke-dasharray="330 120"/>
+  <circle cx="746" cy="382" r="118" fill="none" stroke="#008b8b" stroke-opacity=".45"/>
+  <text x="690" y="392" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#f8fbfc" font-weight="700">ROC-AUC</text>
+</svg>

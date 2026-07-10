@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Titanic ML | Análisis de Supervivencia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio">Titanic <span>ML</span></a>
+      <nav aria-label="Navegación principal">
+        <ul class="nav-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#proyecto">Proyecto</a></li>
+          <li><a href="#objetivos">Objetivos</a></li>
+          <li><a href="#metodologia">CRISP-ML</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#streamlit">App Streamlit</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- 1. Hero (Portada) -->
+      <section id="inicio" class="hero-wrapper">
+        <canvas id="ar-scene" aria-hidden="true"></canvas>
+        <div class="hero-content">
+          <p class="eyebrow">Proyecto Universitario de Machine Learning</p>
+          <h1>Análisis de los Factores que Influyeron en la Supervivencia de los Pasajeros del Titanic mediante Machine Learning</h1>
+          <p>
+            Desarrollo de un modelo predictivo utilizando Regresión Logística y la metodología CRISP-ML para identificar las variables que influyeron en la supervivencia de los pasajeros del Titanic.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#proyecto">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              Ver Proyecto
+            </a>
+            <a class="btn secondary" href="http://localhost:8501" target="_blank">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Probar Modelo
+            </a>
+            <a class="btn secondary" href="https://github.com/" target="_blank">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              Ver GitHub
+            </a>
+          </div>
+          <figure class="hero-visual" aria-label="Ilustracion del Titanic con elementos de inteligencia artificial y realidad aumentada">
+            <img src="assets/ar-ship.png" alt="Ilustracion del Titanic con graficos holograficos y paneles flotantes de inteligencia artificial" />
+          </figure>
+          <div style="margin-top: 24px; font-size: 0.9rem; color: var(--accent);">
+            <strong>Autora del Proyecto:</strong> Liskeidy Rosario P.
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Introducción -->
+      <section id="proyecto" class="section split">
+        <div class="card">
+          <p class="eyebrow">Introducción</p>
+          <h2>El Naufragio más Famoso en Perspectiva de Datos</h2>
+          <p>
+            El hundimiento del Titanic es uno de los acontecimientos más estudiados de la historia. Gracias al análisis de datos y al aprendizaje automático, es posible identificar los factores que influyeron en la supervivencia de los pasajeros. En este proyecto se desarrolla un modelo de Machine Learning basado en Regresión Logística para analizar dichas variables y realizar predicciones sobre nuevos casos.
+          </p>
+        </div>
+        <figure class="visual-panel">
+          <img src="assets/ar-ship.png" alt="Representación visual del Titanic con capas de datos" />
+        </figure>
+      </section>
+
+      <!-- 3. Objetivos del Proyecto -->
+      <section id="objetivos" class="section">
+        <div class="section-header">
+          <p class="eyebrow">Objetivos</p>
+          <h2>Alcance y Metas del Proyecto</h2>
+        </div>
+        
+        <div class="card" style="margin-bottom: 24px;">
+          <h3>Objetivo General</h3>
+          <p style="font-size: 1.1rem; color: #fff;">
+            Desarrollar un modelo predictivo de Machine Learning que permita identificar los factores asociados con la supervivencia de los pasajeros del Titanic utilizando Regresión Logística.
+          </p>
+        </div>
+
+        <div class="card objectives-summary">
+          <h3>Objetivos específicos</h3>
+          <ul>
+            <li>Analizar la base de datos.</li>
+            <li>Preparar los datos.</li>
+            <li>Entrenar el modelo.</li>
+            <li>Evaluar su rendimiento.</li>
+            <li>Implementar el modelo en Streamlit.</li>
+            <li>Publicar el proyecto en GitHub.</li>
+          </ul>
+        </div>
+
+        <div class="grid objectives-grid">
+          <div class="card">
+            <div class="objective-icon">1</div>
+            <div>
+              <h3>Analizar la base de datos</h3>
+              <p>Explorar las correlaciones, distribuciones y características de los pasajeros.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="objective-icon">2</div>
+            <div>
+              <h3>Preparar los datos</h3>
+              <p>Realizar imputación de valores faltantes y transformaciones avanzadas.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="objective-icon">3</div>
+            <div>
+              <h3>Entrenar el modelo</h3>
+              <p>Implementar regresión logística supervisada y una regresión lineal comparativa.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="objective-icon">4</div>
+            <div>
+              <h3>Evaluar el rendimiento</h3>
+              <p>Medir métricas de clasificación en un conjunto de validación independiente.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="objective-icon">5</div>
+            <div>
+              <h3>Implementar en Streamlit</h3>
+              <p>Construir una interfaz de usuario interactiva y moderna para predicciones.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="objective-icon">6</div>
+            <div>
+              <h3>Publicar en GitHub</h3>
+              <p>Seguir buenas prácticas de código abierto y versionamiento.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Dataset Utilizado -->
+      <section class="section split reverse">
+        <figure class="visual-panel">
+          <img src="assets/ar-dashboard.png" alt="Dashboard con métricas" />
+        </figure>
+        <div class="card">
+          <p class="eyebrow">Datos</p>
+          <h2>Dataset Utilizado</h2>
+          <div class="dataset-stats">
+            <div class="stat-item">
+              <div class="stat-val">Titanic</div>
+              <div class="stat-lbl">Nombre</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">891</div>
+              <div class="stat-lbl">Registros</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">12</div>
+              <div class="stat-lbl">Columnas</div>
+            </div>
+          </div>
+          <p style="margin-bottom: 16px;">
+            La variable objetivo del modelo predictivo es <strong>Survived</strong> (1 = Sobrevivió, 0 = Falleció). A continuación se detallan las variables principales seleccionadas para el modelado:
+          </p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Survived</strong></td><td>Supervivencia (Objetivo)</td></tr>
+              <tr><td><strong>Sex</strong></td><td>Sexo del pasajero</td></tr>
+              <tr><td><strong>Age</strong></td><td>Edad en años</td></tr>
+              <tr><td><strong>Fare</strong></td><td>Tarifa pagada por el boleto</td></tr>
+              <tr><td><strong>Pclass</strong></td><td>Clase del pasajero (1, 2, 3)</td></tr>
+              <tr><td><strong>Embarked</strong></td><td>Puerto de embarque (S, C, Q)</td></tr>
+              <tr><td><strong>SibSp</strong></td><td>Hermanos o cónyuge a bordo</td></tr>
+              <tr><td><strong>Parch</strong></td><td>Padres o hijos a bordo</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. Metodología CRISP-ML -->
+      <section id="metodologia" class="section split">
+        <div class="card">
+          <p class="eyebrow">Proceso</p>
+          <h2>Metodología CRISP-ML</h2>
+          <p>
+            El proyecto sigue la metodología estandarizada CRISP-ML para el desarrollo de proyectos de aprendizaje automático, lo cual garantiza que el flujo de trabajo cumpla con los estándares académicos y profesionales de la industria.
+          </p>
+          <div class="timeline-flow">
+            <div class="timeline-step">
+              <h4>1. Comprensión del problema</h4>
+              <p>Definición del objetivo del proyecto, alcance y preguntas de investigación.</p>
+            </div>
+            <div class="timeline-step">
+              <h4>2. Comprensión de los datos</h4>
+              <p>Análisis exploratorio para descubrir distribuciones, correlaciones y faltantes.</p>
+            </div>
+            <div class="timeline-step">
+              <h4>3. Preparación de datos</h4>
+              <p>Tratamiento de nulos e imputación de variables continuas y categóricas.</p>
+            </div>
+            <div class="timeline-step">
+              <h4>4. Ingeniería de características</h4>
+              <p>Creación de nuevas variables como `FamilySize` y `IsAlone`, y escalado de numéricas.</p>
+            </div>
+            <div class="timeline-step">
+              <h4>5. Entrenamiento del modelo</h4>
+              <p>Entrenamiento de Regresión Logística y Regresión Lineal comparativa.</p>
+            </div>
+            <div class="timeline-step">
+              <h4>6. Evaluación</h4>
+              <p>Análisis exhaustivo de métricas sobre datos no vistos.</p>
+            </div>
+            <div class="timeline-step">
+              <h4>7. Despliegue</h4>
+              <p>Publicación de la aplicación Streamlit e integración en repositorio público.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom: 20px;">
+            <h3>Flujo CRISP-ML Simplificado</h3>
+            <div style="font-family: monospace; line-height: 1.8; color: var(--accent); padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+              Comprensión del problema<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              Comprensión de los datos<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              Preparación de datos<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              Ingeniería de características<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              Entrenamiento del modelo<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              Evaluación de métricas<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+              Despliegue final
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Exploración de Datos (EDA) -->
+      <section class="section">
+        <div class="section-header">
+          <p class="eyebrow">Visualización</p>
+          <h2>Exploración de Datos (EDA)</h2>
+          <p>Los gráficos a continuación sintetizan las observaciones más relevantes recolectadas a partir del Titanic dataset.</p>
+        </div>
+
+        <div class="charts-grid">
+          <!-- Gráfico 1 -->
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Distribución de Supervivencia</span>
+              <span style="color: var(--accent); font-size: 0.8rem;">General</span>
+            </div>
+            <div class="bar-chart-container">
+              <div class="bar-row">
+                <span class="bar-label">Fallecido (0)</span>
+                <div class="bar-track">
+                  <div class="bar-fill died" style="width: 61.6%;"></div>
+                </div>
+                <span class="bar-val">549</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Sobrevivió (1)</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 38.4%;"></div>
+                </div>
+                <span class="bar-val">342</span>
+              </div>
+            </div>
+            <p class="chart-desc">
+              De los 891 pasajeros registrados en el dataset original, solo el 38.4% sobrevivió al naufragio, reflejando la alta tasa de mortalidad general.
+            </p>
+          </div>
+
+          <!-- Gráfico 2 -->
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Supervivencia por Sexo</span>
+              <span style="color: var(--accent); font-size: 0.8rem;">Tasa %</span>
+            </div>
+            <div class="bar-chart-container">
+              <div class="bar-row">
+                <span class="bar-label">Femenino</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 74.2%;"></div>
+                </div>
+                <span class="bar-val">74.2%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Masculino</span>
+                <div class="bar-track">
+                  <div class="bar-fill died" style="width: 18.9%;"></div>
+                </div>
+                <span class="bar-val">18.9%</span>
+              </div>
+            </div>
+            <p class="chart-desc">
+              Existe una disparidad enorme en la supervivencia según el sexo de los pasajeros, respaldando la histórica regla de salvamento "mujeres y niños primero".
+            </p>
+          </div>
+
+          <!-- Gráfico 3 -->
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Supervivencia por Clase (Pclass)</span>
+              <span style="color: var(--accent); font-size: 0.8rem;">Tasa %</span>
+            </div>
+            <div class="bar-chart-container">
+              <div class="bar-row">
+                <span class="bar-label">1ª Clase</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 63.0%;"></div>
+                </div>
+                <span class="bar-val">63.0%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">2ª Clase</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width: 47.3%;"></div>
+                </div>
+                <span class="bar-val">47.3%</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">3ª Clase</span>
+                <div class="bar-track">
+                  <div class="bar-fill died" style="width: 24.2%;"></div>
+                </div>
+                <span class="bar-val">24.2%</span>
+              </div>
+            </div>
+            <p class="chart-desc">
+              El nivel socioeconómico representado por la clase del boleto influyó directamente: los de primera clase tuvieron una probabilidad casi tres veces mayor de salvarse frente a los de tercera clase.
+            </p>
+          </div>
+
+          <!-- Gráfico 4 -->
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Distribución de Edades y Tarifas</span>
+              <span style="color: var(--accent); font-size: 0.8rem;">Demografía</span>
+            </div>
+            <div style="padding: 10px 0; font-size: 0.85rem; color: var(--text-muted);">
+              <ul>
+                <li><strong>Edades:</strong> Gran concentración de pasajeros jóvenes adultos, con un pico de frecuencia entre 20 y 30 años.</li>
+                <li style="margin-top: 6px;"><strong>Tarifas (Fare):</strong> Distribución fuertemente sesgada a la derecha. La mayoría compró boletos económicos de bajo valor (menos de $30), mientras que un puñado de pasajes de primera clase superaron los $200.</li>
+              </ul>
+            </div>
+            <p class="chart-desc">
+              Las tarifas bajas representan a la gran mayoría del pasaje, mientras que las edades reflejan un grupo principalmente de jóvenes trabajadores y familias.
+            </p>
+          </div>
+
+          <!-- Gráfico 5 -->
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Matriz de Correlación Simplificada</span>
+              <span style="color: var(--accent); font-size: 0.8rem;">Pearson</span>
+            </div>
+            <table class="correlation-matrix">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Survived</th>
+                  <th>Pclass</th>
+                  <th>Fare</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Survived</th>
+                  <td class="corr-high">1.00</td>
+                  <td class="corr-neg">-0.34</td>
+                  <td class="corr-med">0.26</td>
+                  <td class="corr-low">-0.08</td>
+                </tr>
+                <tr>
+                  <th>Pclass</th>
+                  <td class="corr-neg">-0.34</td>
+                  <td class="corr-high">1.00</td>
+                  <td class="corr-neg">-0.55</td>
+                  <td class="corr-low">-0.37</td>
+                </tr>
+                <tr>
+                  <th>Fare</th>
+                  <td class="corr-med">0.26</td>
+                  <td class="corr-neg">-0.55</td>
+                  <td class="corr-high">1.00</td>
+                  <td class="corr-med">0.10</td>
+                </tr>
+                <tr>
+                  <th>Age</th>
+                  <td class="corr-low">-0.08</td>
+                  <td class="corr-neg">-0.37</td>
+                  <td class="corr-med">0.10</td>
+                  <td class="corr-high">1.00</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="chart-desc">
+              Se observa una correlación negativa moderada entre la clase (Pclass) y la supervivencia, y una correlación positiva moderada entre la tarifa (Fare) y la supervivencia.
+            </p>
+          </div>
+
+          <!-- Gráfico 6 -->
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Valores Faltantes Detectados</span>
+              <span style="color: var(--accent); font-size: 0.8rem;">Calidad</span>
+            </div>
+            <div class="bar-chart-container">
+              <div class="bar-row">
+                <span class="bar-label">Cabin (Cabina)</span>
+                <div class="bar-track">
+                  <div class="bar-fill died" style="width: 77.1%;"></div>
+                </div>
+                <span class="bar-val">687</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Age (Edad)</span>
+                <div class="bar-track">
+                  <div class="bar-fill died" style="width: 19.9%;"></div>
+                </div>
+                <span class="bar-val">177</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Embarked</span>
+                <div class="bar-track">
+                  <div class="bar-fill died" style="width: 0.2%;"></div>
+                </div>
+                <span class="bar-val">2</span>
+              </div>
+            </div>
+            <p class="chart-desc">
+              La variable cabina presenta un porcentaje crítico de faltantes. La edad cuenta con un 19.9% de vacíos que requirieron imputación con la mediana en la preparación de datos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Ingeniería de Características -->
+      <section class="section split">
+        <div class="card">
+          <p class="eyebrow">Ingeniería</p>
+          <h2>Ingeniería de Características</h2>
+          <p style="margin-bottom: 16px;">
+            Para mejorar el desempeño y la robustez del modelo predictivo, los datos originales se sometieron a una tubería estructurada de transformaciones:
+          </p>
+          <ul style="list-style: none; display: grid; gap: 12px; font-size: 0.95rem; color: var(--text-muted);">
+            <li><span style="color: var(--accent);">✔</span> <strong>Eliminación de valores nulos:</strong> Imputación de variables continuas (`Age`) con su mediana e imputación de variables categóricas (`Embarked`) con la moda.</li>
+            <li><span style="color: var(--accent);">✔</span> <strong>Codificación One-Hot:</strong> Transformación de categorías de texto (`Sex` y `Embarked`) en columnas binarias numéricas para la Regresión Logística.</li>
+            <li><span style="color: var(--accent);">✔</span> <strong>Normalización/Escalado:</strong> Aplicación de Standard Scaler sobre variables continuas para homogeneizar sus magnitudes en el optimizador.</li>
+            <li><span style="color: var(--accent);">✔</span> <strong>Creación de FamilySize:</strong> Construcción de una variable calculada (`SibSp + Parch + 1`) que representa el tamaño familiar a bordo.</li>
+            <li><span style="color: var(--accent);">✔</span> <strong>Creación de IsAlone:</strong> Variable booleana binaria igual a 1 si el pasajero viajaba solo, o 0 en caso contrario.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Flujo de Preparación de Datos</h3>
+          <div class="flow-diagram">
+            <div class="flow-node">Datos Originales</div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-node">Limpieza / Imputación</div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-node">Codificación & Escalado</div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-node">Nuevas Variables</div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-node">Modelos ML</div>
+          </div>
+          <p style="font-size: 0.85rem;">
+            Este pipeline modular en scikit-learn garantiza que no haya fuga de datos (data leakage) entre los conjuntos de entrenamiento y prueba.
+          </p>
+        </div>
+      </section>
+
+      <!-- 8. Modelo de Machine Learning -->
+      <section class="section">
+        <div class="section-header">
+          <p class="eyebrow">Algoritmos</p>
+          <h2>Modelos de Machine Learning</h2>
+          <p>Se entrenaron y compararon dos tipos de modelos supervisados según sus tareas respectivas:</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div style="font-size: 1.5rem; color: var(--accent); margin-bottom: 12px;">█ Regresión Logística</div>
+            <h3>Clasificación de Supervivencia</h3>
+            <p style="margin-bottom: 12px;"><strong>Objetivo:</strong> Predecir si un pasajero sobrevivió (`Survived` = 1) o no (`Survived` = 0) basándose en sus características personales y de viaje.</p>
+            <p style="font-size: 0.9rem;">
+              Es el modelo ideal al tratarse de una variable objetivo discreta binaria. Permite calcular directamente las probabilidades de supervivencia.
+            </p>
+          </div>
+
+          <div class="card">
+            <div style="font-size: 1.5rem; color: var(--primary); margin-bottom: 12px;">█ Regresión Lineal</div>
+            <h3>Predicción de Tarifa (Fare)</h3>
+            <p style="margin-bottom: 12px;"><strong>Objetivo:</strong> Predecir de manera continua el costo estimado del boleto en función del resto de variables.</p>
+            <p style="font-size: 0.9rem;">
+              Cumple un rol complementario y pedagógico, mostrando la diferencia en el comportamiento y evaluación de métricas para problemas de estimación continua.
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 24px;">
+          <h3>Diagrama del Flujo de Entrenamiento y Validación</h3>
+          <div style="font-family: monospace; font-size: 0.9rem; color: var(--accent); padding: 16px; background: rgba(0,0,0,0.25); border-radius: 8px; overflow-x: auto; white-space: nowrap;">
+            [Dataset 891 registros] ── Divisón ──► [Entrenamiento 80% (712 pas.)] ──► .fit(X_train) ──► Modelo Final<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──► [Evaluación/Prueba 20% (179 pas.)] ──► .predict(X_test) ──► Métricas
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. Resultados -->
+      <section id="resultados" class="section">
+        <div class="section-header">
+          <p class="eyebrow">Evaluación</p>
+          <h2>Métricas Obtenidas en la Evaluación</h2>
+          <p>Métricas reales obtenidas a partir de los datos de prueba no vistos en el entrenamiento:</p>
+        </div>
+
+        <div class="results-container">
+          <div class="card">
+            <h3>Clasificación: Regresión Logística</h3>
+            <div class="results-metrics-group">
+              <div class="metric-card">
+                <div class="metric-val">80.4%</div>
+                <div class="metric-lbl">Accuracy</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-val">78.3%</div>
+                <div class="metric-lbl">Precision</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-val">68.1%</div>
+                <div class="metric-lbl">Recall</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-val">85.0%</div>
+                <div class="metric-lbl">ROC-AUC</div>
+              </div>
+            </div>
+            <p style="font-size: 0.85rem; margin-top: 16px; color: var(--text-muted);">
+              La precisión del 78.3% indica que cuando el modelo estima supervivencia, el pasajero realmente sobrevive en la gran mayoría de casos. El ROC-AUC de 85.0% demuestra una alta capacidad de discriminación.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Regresión Lineal: Predicción de Tarifa</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                <span style="color: var(--text-muted);">MAE (Error Medio Absoluto)</span>
+                <strong style="color: var(--accent);">$20.89 USD</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                <span style="color: var(--text-muted);">MSE (Error Cuadrático Medio)</span>
+                <strong style="color: var(--accent);">935.20</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                <span style="color: var(--text-muted);">RMSE (Raíz de MSE)</span>
+                <strong style="color: var(--accent);">$30.58 USD</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px;">
+                <span style="color: var(--text-muted);">R² (Coef. de Determinación)</span>
+                <strong style="color: var(--accent);">0.396</strong>
+              </div>
+            </div>
+            <p style="font-size: 0.85rem; margin-top: 12px; color: var(--text-muted);">
+              El R² indica que el 39.6% de la varianza en los precios de los pasajes es explicada por las variables seleccionadas, principalmente Pclass y Survived.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top: 24px;">
+          <div class="card">
+            <h3>Matriz de Confusión Explicada</h3>
+            <div class="confusion-matrix">
+              <div class="cm-cell hit">
+                <span class="cm-val">97</span>
+                <span class="cm-lbl">Verdaderos Negativos (Falleció)</span>
+              </div>
+              <div class="cm-cell miss">
+                <span class="cm-val">13</span>
+                <span class="cm-lbl">Falsos Positivos</span>
+              </div>
+              <div class="cm-cell miss">
+                <span class="cm-val">22</span>
+                <span class="cm-lbl">Falsos Negativos</span>
+              </div>
+              <div class="cm-cell hit">
+                <span class="cm-val">47</span>
+                <span class="cm-lbl">Verdaderos Positivos (Sobrevivió)</span>
+              </div>
+            </div>
+            <p style="font-size: 0.85rem; text-align: center; color: var(--text-muted); margin-top: 8px;">
+              Total casos de prueba evaluados: 179 pasajeros.
+            </p>
+          </div>
+          
+          <div class="card" style="display: flex; flex-direction: column; justify-content: center;">
+            <h3>Curva ROC Simplificada</h3>
+            <div style="display: flex; justify-content: center; padding: 12px;">
+              <svg width="200" height="150" viewBox="0 0 200 150" style="background: rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;">
+                <!-- Ejes -->
+                <line x1="20" y1="130" x2="180" y2="130" stroke="#a5c2eb" stroke-width="1.5" />
+                <line x1="20" y1="20" x2="20" y2="130" stroke="#a5c2eb" stroke-width="1.5" />
+                <!-- Línea base aleatoria -->
+                <line x1="20" y1="130" x2="180" y2="20" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4" />
+                <!-- Curva ROC -->
+                <path d="M 20 130 Q 30 50, 100 30 T 180 20" fill="none" stroke="#00d4ff" stroke-width="3" />
+                <text x="100" y="80" fill="#00d4ff" font-size="10" font-weight="700">AUC = 0.85</text>
+                <text x="15" y="15" fill="#a5c2eb" font-size="8">TPR</text>
+                <text x="160" y="142" fill="#a5c2eb" font-size="8">FPR</text>
+              </svg>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+              Representación conceptual de la tasa de verdaderos positivos (TPR) vs tasa de falsos positivos (FPR).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. Factores más Importantes -->
+      <section class="section split">
+        <div class="card">
+          <p class="eyebrow">Explicabilidad</p>
+          <h2>Factores con Mayor Influencia en la Supervivencia</h2>
+          <p style="margin-bottom: 16px;">
+            El análisis de coeficientes de la Regresión Logística nos permite ordenar las variables de acuerdo a su importancia relativa y dirección del impacto:
+          </p>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Influencia</th>
+                <th>Efecto sobre Supervivencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: rgba(0, 230, 118, 0.04);">
+                <td><strong>Sexo (Mujer)</strong></td>
+                <td><span style="color: var(--success); font-weight: 700;">Muy Alta</span></td>
+                <td>Aumenta la probabilidad (+1.26)</td>
+              </tr>
+              <tr style="background: rgba(255, 23, 68, 0.04);">
+                <td><strong>Sexo (Hombre)</strong></td>
+                <td><span style="color: var(--danger); font-weight: 700;">Muy Alta</span></td>
+                <td>Reduce la probabilidad (-1.29)</td>
+              </tr>
+              <tr style="background: rgba(255, 23, 68, 0.02);">
+                <td><strong>Clase (Pclass)</strong></td>
+                <td><span style="color: var(--warning); font-weight: 700;">Alta</span></td>
+                <td>Clases inferiores reducen probabilidad (-0.89)</td>
+              </tr>
+              <tr>
+                <td><strong>Edad (Age)</strong></td>
+                <td><span>Media</span></td>
+                <td>Mayor edad reduce levemente probabilidad (-0.49)</td>
+              </tr>
+              <tr>
+                <td><strong>Viaja solo (IsAlone)</strong></td>
+                <td><span>Media</span></td>
+                <td>Reduce levemente probabilidad (-0.31)</td>
+              </tr>
+              <tr>
+                <td><strong>Tamaño Familia</strong></td>
+                <td><span>Baja</span></td>
+                <td>Grupos grandes reducen probabilidad (-0.22)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Visualización de Coeficientes de Regresión Logística</h3>
+          <div class="bar-chart-container" style="margin-top: 20px;">
+            <div class="bar-row">
+              <span class="bar-label">Mujer</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 80%;"></div>
+              </div>
+              <span class="bar-val">+1.26</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Hombre</span>
+              <div class="bar-track">
+                <div class="bar-fill died" style="width: 82%;"></div>
+              </div>
+              <span class="bar-val">-1.29</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Clase</span>
+              <div class="bar-track">
+                <div class="bar-fill died" style="width: 57%;"></div>
+              </div>
+              <span class="bar-val">-0.89</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Edad</span>
+              <div class="bar-track">
+                <div class="bar-fill died" style="width: 31%;"></div>
+              </div>
+              <span class="bar-val">-0.49</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">IsAlone</span>
+              <div class="bar-track">
+                <div class="bar-fill died" style="width: 20%;"></div>
+              </div>
+              <span class="bar-val">-0.31</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Tarifa (Fare)</span>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 6%;"></div>
+              </div>
+              <span class="bar-val">+0.09</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Valores positivos favorecen la probabilidad de supervivencia, mientras que los valores negativos la disminuyen sustancialmente.
+          </p>
+        </div>
+      </section>
+
+      <!-- 11. Aplicación Streamlit -->
+      <section id="streamlit" class="section split">
+        <div class="card">
+          <p class="eyebrow">Despliegue</p>
+          <h2>Aplicación Interactiva Streamlit</h2>
+          <p style="margin-bottom: 16px;">
+            Para hacer este modelo utilizable por no-expertos, implementamos una interfaz interactiva de predicción rápida. El usuario puede modificar los campos del formulario y ver la probabilidad de supervivencia estimarse en tiempo real.
+          </p>
+          <p style="margin-bottom: 24px;">
+            El código fuente se encuentra encapsulado en <a href="file:///c:/Users/morel%20technology/Documents/Codex/2026-07-08/files-mentioned-by-the-user-titanic/outputs/titanic-ml-project/app/streamlit_app.py">streamlit_app.py</a> y carga el pipeline completo almacenado con joblib.
+          </p>
+          <a class="btn primary" href="http://localhost:8501" target="_blank">Abrir App Streamlit</a>
+        </div>
+
+        <div class="streamlit-mockup">
+          <div class="mockup-header">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-title">localhost:8501 ─ Streamlit</div>
+          </div>
+          <div class="mockup-body" style="padding: 0; height: 550px; overflow: hidden;">
+            <iframe src="http://localhost:8501/?embed=true" style="width: 100%; height: 100%; border: none;"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. Tecnologías Utilizadas -->
+      <section class="section">
+        <div class="section-header">
+          <p class="eyebrow">Stack Tecnológico</p>
+          <h2>Herramientas Empleadas</h2>
+          <p>Herramientas y tecnologías integradas para el ciclo completo del desarrollo del proyecto:</p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">🐍</div>
+            <div class="tech-name">Python</div>
+            <div class="tech-desc">Lenguaje Principal</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🐼</div>
+            <div class="tech-name">Pandas</div>
+            <div class="tech-desc">Manipulación de Datos</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🔢</div>
+            <div class="tech-name">NumPy</div>
+            <div class="tech-desc">Operaciones Matemáticas</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📊</div>
+            <div class="tech-name">Matplotlib</div>
+            <div class="tech-desc">Graficación Estática</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">⚙</div>
+            <div class="tech-name">Scikit-learn</div>
+            <div class="tech-desc">Modelado de ML</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🎈</div>
+            <div class="tech-name">Streamlit</div>
+            <div class="tech-desc">Dashboard e Interfaz</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🐙</div>
+            <div class="tech-name">GitHub</div>
+            <div class="tech-desc">Control de Versiones</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📄</div>
+            <div class="tech-name">HTML5</div>
+            <div class="tech-desc">Estructura Web</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🎨</div>
+            <div class="tech-name">CSS3</div>
+            <div class="tech-desc">Maquetación Visual</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">⚙</div>
+            <div class="tech-name">JavaScript</div>
+            <div class="tech-desc">Interactividad</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13. Conclusiones -->
+      <section class="section split">
+        <div class="card">
+          <p class="eyebrow">Hallazgos</p>
+          <h2>Conclusiones Clave</h2>
+          <ul style="list-style: none; display: grid; gap: 16px; font-size: 0.95rem; color: var(--text-muted);">
+            <li><span style="color: var(--accent);">✦</span> El <strong>sexo</strong> fue la variable de mayor peso absoluto en el modelo. Las mujeres tenían una probabilidad considerablemente más alta de sobrevivir.</li>
+            <li><span style="color: var(--accent);">✦</span> La <strong>clase social (Pclass)</strong> tuvo un efecto inversamente proporcional: pertenecer a tercera clase penalizó gravemente la probabilidad de salvarse.</li>
+            <li><span style="color: var(--accent);">✦</span> Seguir la metodología <strong>CRISP-ML</strong> aseguró una estructuración ordenada y auditable del ciclo de vida del desarrollo.</li>
+            <li><span style="color: var(--accent);">✦</span> El modelo de <strong>Regresión Logística</strong> superó el 80% de exactitud (accuracy), ofreciendo un balance robusto para clasificación binaria simple.</li>
+          </ul>
+        </div>
+
+        <!-- 14. Recomendaciones -->
+        <div class="card">
+          <p class="eyebrow">Futuro</p>
+          <h2>Recomendaciones</h2>
+          <ul style="list-style: none; display: grid; gap: 16px; font-size: 0.95rem; color: var(--text-muted);">
+            <li><span style="color: var(--accent);">✦</span> <strong>Probar modelos más complejos:</strong> Evaluar árboles de decisión, Random Forest o XGBoost para capturar relaciones no lineales en las variables.</li>
+            <li><span style="color: var(--accent);">✦</span> <strong>Derivar nuevas variables:</strong> Incorporar el estado civil o extraer los títulos honoríficos (Mr., Mrs., Miss, Master) del nombre.</li>
+            <li><span style="color: var(--accent);">✦</span> <strong>Afinar hiperparámetros:</strong> Aplicar GridSearch cross-validation para optimizar la regularización del modelo logístico.</li>
+            <li><span style="color: var(--accent);">✦</span> <strong>Despliegue en la nube:</strong> Publicar el prototipo directamente en Streamlit Community Cloud para acceso remoto permanente.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 15. Equipo de Trabajo -->
+      <section id="equipo" class="section">
+        <div class="card" style="max-width: 800px; margin: 0 auto;">
+          <p class="eyebrow">Información del Proyecto</p>
+          <h2>Equipo y Detalles de la Entrega</h2>
+          <p style="margin-bottom: 20px;">
+            Este proyecto de análisis e implementación predictiva del Titanic se ha desarrollado en el marco académico universitario:
+          </p>
+          <table class="team-table">
+            <tbody>
+              <tr>
+                <td>Estudiante / Autora</td>
+                <td><strong>Liskeidy Rosario P.</strong></td>
+              </tr>
+              <tr>
+                <td>Asignatura</td>
+                <td>Introducción a la Inteligencia Artificial / Machine Learning</td>
+              </tr>
+              <tr>
+                <td>Docente</td>
+                <td>Prof. de la Asignatura / Por definir</td>
+              </tr>
+              <tr>
+                <td>Universidad</td>
+                <td>Institución Universitaria</td>
+              </tr>
+              <tr>
+                <td>Período Académico</td>
+                <td>2026-II</td>
+              </tr>
+              <tr>
+                <td>Fecha de Entrega</td>
+                <td>Julio 2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- 16. Repositorio GitHub y enlaces finales -->
+    <footer class="repo-footer">
+      <div class="repo-actions-container">
+        <a class="btn primary" href="https://github.com/" target="_blank">Ver Repositorio GitHub</a>
+        <a class="btn secondary" href="http://localhost:8501" target="_blank">Probar Modelo Streamlit</a>
+        <a class="btn secondary" href="../notebooks/titanic_crisp_ml.ipynb">Ver Notebook (.ipynb)</a>
+        <a class="btn secondary" href="../README.md">Ver Archivo README.md</a>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        © 2026 Titanic ML Project. Desarrollado por Liskeidy Rosario P. Bajo Licencia MIT.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
